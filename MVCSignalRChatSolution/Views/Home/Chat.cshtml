@@ -5,28 +5,28 @@
 <div id="frame">
     <div id="sidepanel">
         @*<div id="profile">
-            <div class="wrap">
-                <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
-                <p>Mike Ross</p>
-                <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
-                <div id="status-options">
-                    <ul>
-                        <li id="status-online" class="active"><span class="status-circle"></span> <p>Online</p></li>
-                        <li id="status-away"><span class="status-circle"></span> <p>Away</p></li>
-                        <li id="status-busy"><span class="status-circle"></span> <p>Busy</p></li>
-                        <li id="status-offline"><span class="status-circle"></span> <p>Offline</p></li>
-                    </ul>
+                <div class="wrap">
+                    <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
+                    <p>Mike Ross</p>
+                    <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
+                    <div id="status-options">
+                        <ul>
+                            <li id="status-online" class="active"><span class="status-circle"></span> <p>Online</p></li>
+                            <li id="status-away"><span class="status-circle"></span> <p>Away</p></li>
+                            <li id="status-busy"><span class="status-circle"></span> <p>Busy</p></li>
+                            <li id="status-offline"><span class="status-circle"></span> <p>Offline</p></li>
+                        </ul>
+                    </div>
+                    <div id="expanded">
+                        <label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
+                        <input name="twitter" type="text" value="mikeross" />
+                        <label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
+                        <input name="twitter" type="text" value="ross81" />
+                        <label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
+                        <input name="twitter" type="text" value="mike.ross" />
+                    </div>
                 </div>
-                <div id="expanded">
-                    <label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
-                    <input name="twitter" type="text" value="mikeross" />
-                    <label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
-                    <input name="twitter" type="text" value="ross81" />
-                    <label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
-                    <input name="twitter" type="text" value="mike.ross" />
-                </div>
-            </div>
-        </div>*@
+            </div>*@
         <br />
         <div id="search">
             <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
@@ -170,9 +170,9 @@
 
         <div class="message-input">
             <div class="wrap">
-                <input type="text" id="Message" placeholder="Write your message..." />
-                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                <button id="SendMessage" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                <input type="text" id="Message" placeholder="Write your message..." class="form-control"/>
+                @*<i class="fa fa-paperclip attachment" aria-hidden="true"></i>*@
+                <button id="SendMessage" class="btn submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                 <input type="hidden" id="DisplayName" />
             </div>
         </div>
@@ -182,7 +182,7 @@
 
 @section scripts {
     <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
-    
+
     <script src="/signalr/hubs"></script>
 
     @*SIGNALR SCRIPT*@
@@ -235,7 +235,7 @@
                 animateToTop();
                 $("#Message").val("").focus();
             }
-        }        
+        }
 
     </script>
 
@@ -249,6 +249,7 @@
 
         function animateToTop() {
             $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, "fast");
-        }        
+        }
     </script>
 }
+
