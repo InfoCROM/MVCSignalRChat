@@ -27,6 +27,8 @@ namespace MVCSignalRChatSolution
                       "~/Content/site.css",
                       "~/Content/chat.css"
                       ));
+
+
         }
     }
 }
