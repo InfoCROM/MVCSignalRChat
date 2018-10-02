@@ -152,30 +152,6 @@
         </div>
         <div class="messages">
             <ul id="Discussion">
-                @*<li class="sent">
-                    <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                    <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
-                </li>
-                <li class="replies">
-                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                    <p>When you're backed against the wall, break the god damn thing down.</p>
-                </li>
-                <li class="replies">
-                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                    <p>Excuses don't win championships.</p>
-                </li>
-                <li class="sent">
-                    <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                    <p>Oh yeah, did Michael Jordan tell?</p>
-                </li>
-                <li class="replies">
-                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                    <p>No, I told him that.</p>
-                </li>
-                <li class="replies">
-                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                    <p>What are your choices when someone puts a gun to your head?</p>
-                </li>*@
                 <li class="sent">
                     <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
                     <p>
@@ -207,34 +183,63 @@
     
     <script src="/signalr/hubs"></script>
 
+    @*SIGNALR SCRIPT*@
     <script type="text/javascript">
+
+        var Chat = $.connection.chatHub;
+
         $(function () {
-            var Chat = $.connection.chatHub;
 
             // Se ejecuta cada vez que se envía un mensaje
-            Chat.client.sendChat = function (name, message) {
+            Chat.client.sendChat = function (name, message, connID) {
 
-                var tagName = $("<strong />").text(name).html();
-                var tagMessage = $("<span />").text(message).html();
+                var _tagName = $("<strong />").text(connID).html();
+                var _tagMessage = $("<span />").text(message).html();
+                var _tagChatElement = $("<li />").html("<p> " + _tagName + "</br > " + _tagMessage + "</p >");
 
-                $("#Discussion").append("<li><p>" + tagName + "</br>" + tagMessage + "</p></li>");
+                if (connID === $.connection.hub.id)
+                    _tagChatElement.addClass("replies");
+                else
+                    _tagChatElement.addClass("sent");
+
+                $("#Discussion").append(_tagChatElement);
+                animateToTop();
             };
 
             // Funcionalidad enviar Mensaje (Click)
             $.connection.hub.start().done(function () {
 
                 $("#SendMessage").click(function () {
-
-                    var _name = "Nombre de la persona";
-                    var _message = $("#Message").val();
-
-                    // Llamada al método del BackEnd
-                    Chat.server.send(_name, _message);
-
-                    $("#Message").val("").focus();
+                    newMessage();
                 });
             });
 
         });
+
+        function newMessage() {
+            var _name = "Nombre de la persona";
+            var _message = $("#Message").val();
+
+            if (_message.trim() !== "" && _message !== null) {
+                // Llamada al método del BackEnd
+                Chat.server.send(_name, _message, $.connection.hub.id);
+                animateToTop();
+                $("#Message").val("").focus();
+            }
+        }        
+
+    </script>
+
+    <script>
+        $(window).on('keydown', function (e) {
+            if (e.which == 13) {
+                newMessage();
+                return false;
+            }
+        });
+
+        function animateToTop() {
+            $(".messages").animate({ scrollTop: $(".messages")[0].scrollHeight }, "fast");
+        }        
     </script>
 }
