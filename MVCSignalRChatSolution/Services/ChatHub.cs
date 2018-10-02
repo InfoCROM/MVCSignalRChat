@@ -15,7 +15,7 @@ namespace MVCSignalRChatSolution.Services
 
         public void Send(string name, string message)
         {
-            Clients.All.SendChat(name, message);
+            Clients.All.sendChat(name, message);
         }
     }
 }
