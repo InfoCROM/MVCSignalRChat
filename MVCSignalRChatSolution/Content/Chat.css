@@ -136,7 +136,8 @@
 }*/
 
 #frame .content .contact-profile img.online {
-    border: 2px solid #2ecc71;
+    /*border: 2px solid #2ecc71;*/
+    border: 2px solid #496886;
 }
 
 #frame #sidepanel #profile .wrap img.away {
@@ -836,3 +837,22 @@
     #frame .content .message-input .wrap button:focus {
         outline: none;
     }
+
+    /*NUEVOS ESTILOS*/
+    .login-button {
+        border: none;
+        width: auto;
+        /*padding: 9px 10px 8px 10px;*/
+        margin: 0 5px 5px 0;
+        cursor: pointer;
+        background: #32465a;
+        color: #f5f5f5;
+    }
+
+    .login-button:hover {
+        background: #435f7a;
+    }
+
+img {
+    border: 2px solid #496886 !important;
+}

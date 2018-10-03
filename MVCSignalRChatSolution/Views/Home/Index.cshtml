@@ -142,6 +142,7 @@
             <button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
         </div>
     </div>
+
     <div class="content">
         <div class="contact-profile">
             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" class="online" />
@@ -152,27 +153,23 @@
                 <i class="fa fa-instagram" aria-hidden="true"></i>
             </div>
         </div>
+
         <div class="messages">
-            <ul id="Discussion">
-                <li class="sent">
-                    <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                    <p>
-                        <strong>Rafael Acosta</strong>:<br />
-                        <span>What are you talking about? You do what they say or they shoot you.</span>
-                    </p>
-                </li>
-                <li class="replies">
-                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                    <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
-                </li>
-            </ul>
+
+            <div class="row">
+                <div class="col-md-6 offset-3 text-center">
+                    <button class="btn login-button">Acceder</button>
+                </div>
+
+                
+            </div>
+
         </div>
 
         <div class="message-input">
             <div class="wrap">
-                <input type="text" id="Message" placeholder="Write your message..." />
-                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                <button id="SendMessage" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                <input type="text" id="Message" placeholder="Write your message..." class="form-control" />
+                <button id="SendMessage" class="btn submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                 <input type="hidden" id="DisplayName" />
             </div>
         </div>

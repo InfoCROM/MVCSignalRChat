@@ -34,7 +34,7 @@
         </div>
 
         <div id="contacts">
-            <ul>
+            <ul id="users">
                 <li class="contact">
                     <div class="wrap">
                         <span class="contact-status online"></span>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="contact">
+                @*<li class="contact">
                     <div class="wrap">
                         <span class="contact-status online"></span>
                         <img src="http://emilcarlsson.se/assets/donnapaulsen.png" alt="" />
@@ -134,7 +134,7 @@
                             <p class="preview"><span>You:</span> That's bullshit. This deal is solid.</p>
                         </div>
                     </div>
-                </li>
+                </li>*@
             </ul>
         </div>
         <div id="bottom-bar">
@@ -142,6 +142,7 @@
             <button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
         </div>
     </div>
+
     <div class="content">
         <div class="contact-profile">
             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" class="online" />
@@ -194,9 +195,10 @@
         $(function () {
             $("#Message").focus();
 
+            //////////////////////////////////////////////
             // Se ejecuta cada vez que se envía un mensaje
+            //////////////////////////////////////////////
             CHAT.client.sendChat = function (name, message, connUserID) {
-
                 var _tagChatElement = $("<p />");
                 $("<strong />").text(connUserID).appendTo(_tagChatElement);
                 $("</br>").appendTo(_tagChatElement);
@@ -213,6 +215,21 @@
                 $("#Discussion").append(_tagLiElement);
                 animateToTop();
             };
+
+            /////////////////////////////////////////////////
+            // Se ejecuta cada vez que se conecta un Usuario
+            /////////////////////////////////////////////////
+            //CHAT.client.newUser = function (connectionId) {
+
+            //    var _tagConnElement = $("<p />").text(connectionId);
+            //    var _tagDivElement1 = $("<div />").addClass("wrap");
+            //    var _tagDivElement2 = $("<div />").addClass("meta");
+            //    var _tagLiElement = $("<li />").addClass("contact");
+            //    _tagConnElement.appendTo(_tagDivElement2).appendTo(_tagDivElement1).appendTo(_tagLiElement);
+                    
+
+            //    $("#users").append(_tagLiElement);
+            //};
 
             // Funcionalidad enviar Mensaje (Click)
             $.connection.hub.start().done(function () {
