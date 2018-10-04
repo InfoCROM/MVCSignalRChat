@@ -4,17 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
+using MVCSignalRChatSolution.Data.Models;
 
 namespace MVCSignalRChatSolution.Services
 {
     public class ChatHub : Hub
     {
-        //public void Hello()
-        //{
-        //    Clients.All.hello();
-        //}
-
-
+        private DBService _dBService = new DBService();
 
         public void Send(string name, string message, string connID)
         {
@@ -26,18 +22,31 @@ namespace MVCSignalRChatSolution.Services
         // Cuando un Usuaerio se Conecta
         public override Task OnConnected()
         {
-            var _name = Context.User.Identity.Name;
+            var _userId = Context.QueryString["userId"];
+            var _user = _dBService.GetUser(_userId);
 
+            if (_user != null)
+            {
+                _user.ConnectionId = Context.ConnectionId;
+                _dBService.UpdateUser(_user);
+            }
 
+            Clients.All.activeUsers(_dBService.GetUsers());
 
-
-            //Clients.All.newUser(Context.ConnectionId);
             return base.OnConnected();
         }
 
         // Cuando un Usuario se Desconecta
         public override Task OnDisconnected(bool stopCalled)
         {
+            var _userId = Context.QueryString["userId"];
+            var _user = _dBService.GetUser(_userId);
+
+            if (_user != null)
+                _dBService.DeleteUser(_user);
+
+            Clients.All.activeUsers(_dBService.GetUsers());
+
             return base.OnDisconnected(stopCalled);
         }
     }

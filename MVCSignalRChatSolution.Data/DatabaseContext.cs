@@ -1,4 +1,4 @@
-﻿using MVCSignalRChatSolution.Models;
+﻿using MVCSignalRChatSolution.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MVCSignalRChatSolution.Data
 {
-    class DatabaseContext : DbContext
+    public class DatabaseContext : DbContext
     {
         // SI LA CLASE DEL DbContext SE LLAMA IGUAL QUE EL ConnectionString, 
         // NO HACE FALTA PASARLE A LA CLASE BASE EL NOMBRE DEL ConnectionString.

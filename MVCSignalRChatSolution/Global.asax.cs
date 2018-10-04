@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVCSignalRChatSolution.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,14 @@ namespace MVCSignalRChatSolution
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            DBService _dBSrv = new DBService();
+            _dBSrv.DeleteAllUsers();
+        }
+
+        protected void Application_Disposed()
+        {
+            
         }
     }
 }

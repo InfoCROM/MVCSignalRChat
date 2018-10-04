@@ -15,6 +15,8 @@ namespace MVCSignalRChatSolution
 
             // Iniciaizamos SignalR
             app.MapSignalR();
+
         }
+        
     }
 }

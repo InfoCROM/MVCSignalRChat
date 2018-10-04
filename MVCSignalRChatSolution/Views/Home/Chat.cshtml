@@ -1,6 +1,4 @@
-﻿@{
-    ViewBag.Title = "Chat Page";
-}
+﻿@model MVCSignalRChatSolution.Data.Models.User
 
 <div id="frame">
     <div id="sidepanel">
@@ -35,7 +33,7 @@
 
         <div id="contacts">
             <ul id="users">
-                <li class="contact">
+                @*<li class="contact">
                     <div class="wrap">
                         <span class="contact-status online"></span>
                         <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
@@ -64,7 +62,7 @@
                             <p class="preview">I was thinking that we could have chicken tonight, sounds good?</p>
                         </div>
                     </div>
-                </li>
+                </li>*@
                 @*<li class="contact">
                     <div class="wrap">
                         <span class="contact-status online"></span>
@@ -146,7 +144,7 @@
     <div class="content">
         <div class="contact-profile">
             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" class="online" />
-            <p>Harvey Specter</p>
+            <p>@Model.UserName</p>
             <div class="social-media">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
                 <i class="fa fa-twitter" aria-hidden="true"></i>
@@ -155,7 +153,7 @@
         </div>
         <div class="messages">
             <ul id="Discussion">
-                <li class="sent">
+                @*<li class="sent">
                     <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
                     <p>
                         <strong>Rafael Acosta</strong>:<br />
@@ -165,16 +163,17 @@
                 <li class="replies">
                     <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
                     <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
-                </li>
+                </li>*@
             </ul>
         </div>
 
         <div class="message-input">
             <div class="wrap">
-                <input type="text" id="Message" placeholder="Write your message..." class="form-control"/>
+                <input type="text" id="Message" placeholder="Mensaje ..." class="form-control" />
                 @*<i class="fa fa-paperclip attachment" aria-hidden="true"></i>*@
                 <button id="SendMessage" class="btn submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                <input type="hidden" id="DisplayName" />
+                <input type="hidden" id="UserName" value="@Model.UserName" />
+                <input type="hidden" id="UserId" value=@Model.UserId />
             </div>
         </div>
 
@@ -196,13 +195,19 @@
             $("#Message").focus();
 
             //////////////////////////////////////////////
+            // Envia el Usuario actual al OnConneted() del Hub
+            //////////////////////////////////////////////
+            $.connection.hub.qs = { 'userId': $("#UserId").val() };
+
+
+            //////////////////////////////////////////////
             // Se ejecuta cada vez que se envía un mensaje
             //////////////////////////////////////////////
             CHAT.client.sendChat = function (name, message, connUserID) {
                 var _tagChatElement = $("<p />");
-                $("<strong />").text(connUserID).appendTo(_tagChatElement);
+                $("<strong />").html(name).appendTo(_tagChatElement);
                 $("</br>").appendTo(_tagChatElement);
-                $("<span />").text(message).appendTo(_tagChatElement);
+                $("<span />").html(message).appendTo(_tagChatElement);
 
                 var _tagLiElement = $("<li />");
                 $(_tagChatElement).appendTo(_tagLiElement);
@@ -211,7 +216,7 @@
                     _tagLiElement.addClass("replies");
                 else
                     _tagLiElement.addClass("sent");
-
+                
                 $("#Discussion").append(_tagLiElement);
                 animateToTop();
             };
@@ -219,31 +224,39 @@
             /////////////////////////////////////////////////
             // Se ejecuta cada vez que se conecta un Usuario
             /////////////////////////////////////////////////
-            //CHAT.client.newUser = function (connectionId) {
+            CHAT.client.activeUsers = function (users) {
 
-            //    var _tagConnElement = $("<p />").text(connectionId);
-            //    var _tagDivElement1 = $("<div />").addClass("wrap");
-            //    var _tagDivElement2 = $("<div />").addClass("meta");
-            //    var _tagLiElement = $("<li />").addClass("contact");
-            //    _tagConnElement.appendTo(_tagDivElement2).appendTo(_tagDivElement1).appendTo(_tagLiElement);
-                    
+                $("#users").html("");
+                $.each(users, function () {
 
-            //    $("#users").append(_tagLiElement);
-            //};
+                    var _tagDivElement2 = $("<div />").addClass("meta");
+                    $("<p />").addClass("name").html(this.UserName).appendTo(_tagDivElement2);
+                    $("<p />").addClass("preview").html(this.ConnectionId).appendTo(_tagDivElement2);
 
+                    var _tagDivElement1 = $("<div />").addClass("wrap");
+                    _tagDivElement2.appendTo(_tagDivElement1);
+
+                    var _tagLiElement = $("<li />").addClass("contact");
+                    _tagDivElement1.appendTo(_tagLiElement);
+
+                    $("#users").append(_tagLiElement);
+                });
+
+            };
+
+            ////////////////////////////////////////
             // Funcionalidad enviar Mensaje (Click)
+            ////////////////////////////////////////
             $.connection.hub.start().done(function () {
-
                 $("#SendMessage").click(function () {
                     newMessage();
                 });
-
             });
 
         });
 
         function newMessage() {
-            var _name = "Nombre de la persona";
+            var _name = $("#UserName").val();
             var _message = $("#Message").val();
 
             if (_message.trim() !== "" && _message !== null) {

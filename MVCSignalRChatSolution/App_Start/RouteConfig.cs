@@ -16,7 +16,7 @@ namespace MVCSignalRChatSolution
             routes.MapRoute(
                 name: "Chat",
                 url: "Chat",
-                defaults: new { controller = "Home", action = "Chat", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Chat" }
             );
 
             routes.MapRoute(

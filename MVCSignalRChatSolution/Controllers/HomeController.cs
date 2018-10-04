@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MVCSignalRChatSolution.Data.Models;
+using MVCSignalRChatSolution.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,14 +10,27 @@ namespace MVCSignalRChatSolution.Controllers
 {
     public class HomeController : Controller
     {
+        private DBService _dBService = new DBService();
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Chat()
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        public ActionResult Chat(string id, HttpPostedFileBase img)
         {
-            return View();
+            //img.ToString();
+
+            if (string.IsNullOrEmpty(id))
+                 return View("Index");
+
+            User _user = new User();
+            _user.UserName = id;
+            if (_dBService.SetUser(_user))
+                return View(_user);
+            else
+                return View("Index");
         }
 
         public ActionResult About()

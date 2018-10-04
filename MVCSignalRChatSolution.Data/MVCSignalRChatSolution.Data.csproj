@@ -59,8 +59,17 @@
     <Compile Include="Migrations\201810031305218_MigraciónInicial.Designer.cs">
       <DependentUpon>201810031305218_MigraciónInicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810041255426_ConnectionId_unica_en_Users.cs" />
+    <Compile Include="Migrations\201810041255426_ConnectionId_unica_en_Users.Designer.cs">
+      <DependentUpon>201810041255426_ConnectionId_unica_en_Users.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810041625020_ImageIdNuevoCampo_en_Users.cs" />
+    <Compile Include="Migrations\201810041625020_ImageIdNuevoCampo_en_Users.Designer.cs">
+      <DependentUpon>201810041625020_ImageIdNuevoCampo_en_Users.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Connection.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -71,6 +80,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810031305218_MigraciónInicial.resx">
       <DependentUpon>201810031305218_MigraciónInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810041255426_ConnectionId_unica_en_Users.resx">
+      <DependentUpon>201810041255426_ConnectionId_unica_en_Users.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810041625020_ImageIdNuevoCampo_en_Users.resx">
+      <DependentUpon>201810041625020_ImageIdNuevoCampo_en_Users.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
